@@ -59,6 +59,20 @@ def generate_k_range(k):
         k_ids_dict[key] = Ks[i]
     return(k_ids_dict)
 
+def do_random(X, Ks):
+    res = dict()
+    for K in Ks.keys(): res[K] = dict()
+
+    random.seed(42)
+
+    for item in Ks.keys():
+        K_id = item  ## just an unique identifier
+        K = Ks[K_id] ## the tested k perhaps repeated
+
+        res[K_id] = random.randit(1, K)
+
+    return np.array([res[key] for key in res.keys()]).T
+    
 
 def do_gm(X, Ks):
     res = dict()
