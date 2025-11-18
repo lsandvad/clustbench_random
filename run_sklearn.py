@@ -15,7 +15,7 @@ import numpy as np
 import warnings
 import random
 
-VALID_METHODS = ['birch', 'kmeans', 'spectral', 'gm']
+VALID_METHODS = ['random', 'birch', 'kmeans', 'spectral', 'gm']
 
 def load_labels(data_file):
     data = np.loadtxt(data_file, ndmin=1)
@@ -59,11 +59,11 @@ def generate_k_range(k):
         k_ids_dict[key] = Ks[i]
     return(k_ids_dict)
 
-def do_random(X, Ks):
+def do_random(X, Ks, seed):
     res = dict()
     for K in Ks.keys(): res[K] = dict()
 
-    random.seed(42)
+    random.seed(seed)
 
     for item in Ks.keys():
         K_id = item  ## just an unique identifier
@@ -181,6 +181,9 @@ def main():
                         help='gz-compressed textfile with the true labels; used to select a range of ks.', required = True)
     parser.add_argument('--output_dir', type=str,
                         help='output directory to store data files.')
+    parser.add_argument('--seed', type=int,
+                        default = 1,
+                        help='Add seed for random clustering.')
     parser.add_argument('--name', type=str, help='name of the dataset', default='clustbench')
     parser.add_argument('--method', type=str,
                         help='sklearn method',
@@ -209,7 +212,7 @@ def main():
     elif args.method == 'gm':
         curr = do_gm(X = load_dataset(data), Ks = Ks)
     elif args.method == 'random':
-        curr = do_random(X = load_dataset(data), Ks = Ks)
+        curr = do_random(X = load_dataset(data), Ks = Ks, seed = args.seed)
     elif args.method in VALID_METHODS:
         raise ValueError('Valid method, but not implemented')
     
