@@ -208,6 +208,8 @@ def main():
         curr = do_spectral(X = load_dataset(data), Ks = Ks)
     elif args.method == 'gm':
         curr = do_gm(X = load_dataset(data), Ks = Ks)
+    elif args.method == 'random':
+        curr = do_random(X = load_dataset(data), Ks = Ks)
     elif args.method in VALID_METHODS:
         raise ValueError('Valid method, but not implemented')
     
