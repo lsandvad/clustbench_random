@@ -69,7 +69,7 @@ def do_random(X, Ks, seed):
         K_id = item  ## just an unique identifier
         K = Ks[K_id] ## the tested k perhaps repeated
 
-        res[K_id] = random.randint(1, Ks[K_id]])
+        res[K_id] = random.randint(1, Ks[K_id])
 
     return np.array([res[key] for key in res.keys()]).T
     
